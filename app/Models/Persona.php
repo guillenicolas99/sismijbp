@@ -13,22 +13,22 @@ class Persona extends Model
 
     protected $fillable = [
         'nombre',
-        'id_red',
-        'id_nivel_liderazgo',
+        'red_id',
+        'titulo_id',
     ];
 
     public function red()
     {
-        return $this->belongsTo(Red::class, 'id_red');
+        return $this->belongsTo(Red::class, 'idRed');
     }
 
-    public function nivelLiderazgo()
+    public function titulo()
     {
-        return $this->belongsTo(NivelLiderazgo::class, 'id_nivel_liderazgo');
+        return $this->belongsTo(Titulo::class);
     }
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'id_persona');
+        return $this->hasMany(Ticket::class);
     }
 }

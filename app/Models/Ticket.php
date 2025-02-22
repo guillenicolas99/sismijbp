@@ -18,23 +18,23 @@ class Ticket extends Model
         'descuento',
         'fecha_descuento',
         'estado',
-        'id_evento',
-        'id_categoria',
-        'id_persona',
+        'evento_id',
+        'categoria_id',
+        'persona_id',
     ];
 
     public function evento()
     {
-        return $this->belongsTo(Evento::class, 'id_evento');
+        return $this->belongsTo(Evento::class);
     }
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'id_categoria');
+        return $this->belongsTo(Categoria::class);
     }
 
     public function persona()
     {
-        return $this->belongsTo(Persona::class, 'id_persona');
+        return $this->belongsTo(Persona::class);
     }
 }

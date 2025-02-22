@@ -1,20 +1,3 @@
-@extends('adminlte::page')
-
-@section('title', 'Dashboard')
-
-@section('content_header')
-    <h1>Menú de Inicio</h1>
-@stop
-
-@section('content')
-    <p>Bienvenido .</p>
-@stop
-
-@section('css')
-    {{-- Add here extra stylesheets --}}
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@stop
-
-@section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
-@stop
+<x-app-layout>
+    <h1 class="text-center text-2xl text-white">Vista del dashboard</h1>
+</x-app-layout>

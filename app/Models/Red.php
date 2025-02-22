@@ -17,6 +17,6 @@ class Red extends Model
 
     public function personas()
     {
-        return $this->hasMany(Persona::class, 'id_red');
+        return $this->hasMany(Persona::class);
     }
 }

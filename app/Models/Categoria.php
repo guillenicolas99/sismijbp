@@ -17,6 +17,6 @@ class Categoria extends Model
 
     public function tickets()
     {
-        return $this->hasMany(Ticket::class, 'id_categoria');
+        return $this->hasMany(Ticket::class);
     }
 }

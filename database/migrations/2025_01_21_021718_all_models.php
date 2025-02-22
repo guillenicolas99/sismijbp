@@ -12,52 +12,53 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categorias', function (Blueprint $table) {
-            $table->id('id_categoria');
-            $table->string('nombre')->nullable(false);
+            $table->id();
+            $table->string('nombre')->nullable(false)->unique();
             $table->timestamps();
         });
 
         Schema::create('eventos', function (Blueprint $table) {
-            $table->id('id_evento');
+            $table->id();
             $table->string('nombre')->nullable(false);
-            $table->dateTime('fecha')->nullable(false);
+            $table->dateTime('date')->nullable(false);
             $table->timestamps();
         });
-        
-        Schema::create('nivel_liderazgos', function (Blueprint $table) {
-            $table->id('id_nivel_liderazgo'); // Esto crea una columna "bigint unsigned"
-            $table->string('nombre')->nullable(false);
-            $table->timestamps();
-        });        
 
-        Schema::create('reds', function (Blueprint $table) {
-            $table->id('id_red')->unsigned(); // Aseguramos que sea UNSIGNED
-            $table->string('nombre')->nullable(false);
+        Schema::create('titulos', function (Blueprint $table) {
+            $table->id(); // Esto crea una columna "bigint unsigned"
+            $table->string('nombre')->nullable(false)->unique();
             $table->timestamps();
         });
-        
-        Schema::create('personas', function (Blueprint $table) {
-            $table->id('id_persona');
-            $table->string('nombre')->nullable(false);
-            $table->foreignId('id_red')->constrained('reds', 'id_red')->cascadeOnDelete();
-            $table->foreignId('id_nivel_liderazgo')->constrained('nivel_liderazgos', 'id_nivel_liderazgo')->cascadeOnDelete();
+
+        Schema::create('redes', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable(false)->unique();
             $table->timestamps();
-        });        
+        });
+
+        Schema::create('personas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre')->nullable(false);
+            $table->string('telefono')->nullable(false)->unique();
+            $table->string('cedula')->unique()->nullable(false);
+            $table->foreignId('red_id')->constrained('redes')->onDelete('cascade');
+            $table->foreignId('titulo_id')->constrained('titulos')->onDelete('cascade');
+            $table->timestamps();
+        });
 
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id('id_ticket')->unsigned(); // Aseguramos que sea UNSIGNED
-            $table->string('codigo');
+            $table->id(); // Aseguramos que sea UNSIGNED
+            $table->string('codigo')->unique();
             $table->double('abono')->nullable();
             $table->double('precio')->nullable(false);
             $table->double('descuento')->nullable();
             $table->dateTime('fecha_descuento')->nullable();
             $table->string('estado');
-            $table->foreignId('id_evento')->constrained('eventos', 'id_evento')->cascadeOnDelete();
-            $table->foreignId('id_categoria')->constrained('categorias', 'id_categoria')->cascadeOnDelete();
-            $table->foreignId('id_persona')->nullable()->constrained('personas', 'id_persona')->nullOnDelete(); // Permitir 'nullable' está bien si una persona no siempre se asigna
+            $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+            $table->foreignId('persona_id')->nullable()->constrained('personas')->nullOnDelete(); // Permitir 'nullable' está bien si una persona no siempre se asigna
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -67,8 +68,8 @@ return new class extends Migration
     {
         Schema::dropIfExists('categorias');
         Schema::dropIfExists('eventos');
-        Schema::dropIfExists('nivel_liderazgos');
-        Schema::dropIfExists('reds');
+        Schema::dropIfExists('titulos');
+        Schema::dropIfExists('redes');
         Schema::dropIfExists('personas');
         Schema::dropIfExists('tickets');
     }

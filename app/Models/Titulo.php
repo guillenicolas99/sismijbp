@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NivelLiderazgo extends Model
+class Titulo extends Model
 {
     use HasFactory;
 
-    protected $table = 'niveles_liderazgo';
+    protected $table = 'titulos';
 
     protected $fillable = [
         'nombre',
@@ -17,6 +17,6 @@ class NivelLiderazgo extends Model
 
     public function personas()
     {
-        return $this->hasMany(Persona::class, 'id_nivel_liderazgo');
+        return $this->hasMany(Persona::class);
     }
 }
