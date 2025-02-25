@@ -14,7 +14,14 @@ class Evento extends Model
     protected $fillable = [
         'nombre',
         'fecha',
+        'is_active',
     ];
+
+    protected $casts = [
+        'fecha' => 'date',
+        'is_active' => 'boolean', // Opcional, pero recomendado
+    ];
+
 
     public function tickets()
     {

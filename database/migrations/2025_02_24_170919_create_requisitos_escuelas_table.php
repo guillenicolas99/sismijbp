@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inscripciones', function (Blueprint $table) {
+        Schema::create('requisitos_escuelas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('persona_id')->constrained('personas')->onDelete('cascade');
             $table->foreignId('escuela_id')->constrained('escuelas')->onDelete('cascade');
-            $table->integer('asistencias')->default(0);
-            $table->boolean('retiros_completados')->default(false);
-            $table->integer('invitados')->default(0);
-            $table->boolean('aprobado')->default(false);
+            $table->double('nota_minima')->default(70); // Nota mínima para aprobar
+            $table->integer('min_invitados')->default(0); // Cantidad mínima de invitados
+            $table->integer('min_asistencia')->default(80); // Porcentaje mínimo de asistencia
             $table->timestamps();
-        
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inscripcions');
+        Schema::dropIfExists('requisitos_escuelas');
     }
 };

@@ -14,4 +14,9 @@ class Retiro extends Model
         'descripcion',
         'escuela_id'
     ];
+
+    public function escuela()
+    {
+        return $this->belongsTo(Escuela::class);
+    }
 }

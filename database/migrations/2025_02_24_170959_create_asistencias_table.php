@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('escuelas', function (Blueprint $table) {
+        Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->integer('nivel')->unique(); // Nivel de la escuela (1, 2, 3)
-            $table->text('descripcion')->nullable();
-            $table->text('requisitos')->nullable();
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->foreignId('persona_id')->constrained('personas')->onDelete('cascade');
+            $table->foreignId('grupo_id')->constrained('grupos')->onDelete('cascade');
+            $table->date('fecha');
+            $table->boolean('asistio'); // true si asistió, false si no
             $table->timestamps();
-        
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('escuelas');
+        Schema::dropIfExists('asistencias');
     }
 };

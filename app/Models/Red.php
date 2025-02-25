@@ -13,6 +13,8 @@ class Red extends Model
 
     protected $fillable = [
         'nombre',
+        'is_active',
+        'lider_de_red',
     ];
 
     public function personas()

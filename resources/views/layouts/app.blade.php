@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/fontawesome-free/css/all.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- SWEET ALERT 2 CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -26,6 +29,16 @@
             {{ $slot }}
         </main>
     </div>
+
+    @if (session('swal'))
+        <script>
+            swal.fire(
+                @json(session('swal'))
+            )
+        </script>
+    @endif
+
+    @stack('js')
 </body>
 
 </html>

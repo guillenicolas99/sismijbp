@@ -9,11 +9,13 @@ class Escuela extends Model
     protected $table = 'escuelas';
 
     protected $fillable = [
+        'codigo',
         'nombre',
-        'nivel',
-        'descripcion',
-        'requisitos',
-        'fecha_inicio',
-        'fecha_fin',
+        'is_active',
     ];
+
+    public function grupos()
+    {
+        return $this->hasMany(Grupo::class);
+    }
 }

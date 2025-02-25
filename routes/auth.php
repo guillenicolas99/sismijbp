@@ -9,6 +9,12 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\RedController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\TituloController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -57,4 +63,13 @@ Route::middleware('auth')->group(function () {
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::get('users', [RegisteredUserController::class, 'index'])->name('users');
+
+    //RUTAS ADMIN
+    Route::resource('eventos', EventoController::class);
+    Route::resource('tickets', TicketController::class);
+    Route::resource('personas', PersonaController::class);
+    Route::resource('redes', RedController::class);
+    Route::resource('categorias', CategoriaController::class);
+    Route::resource('titulos', TituloController::class);
 });

@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Asistencia extends Model
+class RetiroAsistido extends Model
 {
-    protected $table = 'asistencias';
+    protected $table = 'retiros_asistidos';
 
     protected $fillable = [
         'persona_id',
-        'grupo_id',
-        'fecha',
-        'asistio',
+        'retiro_id',
+        'retiro_idfecha',
     ];
 }

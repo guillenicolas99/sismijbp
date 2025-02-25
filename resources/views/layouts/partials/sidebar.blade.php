@@ -16,16 +16,52 @@
             'active' => request()->routeIs('register'),
         ],
         [
-            'name' => 'Editar perfil',
-            'route' => 'profile.edit',
+            'name' => 'Administrar roles',
+            'route' => 'users',
             'icon' => '/',
-            'active' => request()->routeIs('profile.edit'),
+            'active' => request()->routeIs('users.index'),
         ],
         [
-            'name' => 'Administrar roles',
-            'route' => 'dashboard',
+            'header' => 'Eventos',
+        ],
+        [
+            'name' => 'Todos los eventos',
+            'route' => 'eventos.index',
             'icon' => '/',
-            'active' => request()->routeIs('dashboard'),
+            'active' => request()->routeIs('eventos.index'),
+        ],
+        [
+            'name' => 'Tickets',
+            'route' => 'tickets.index',
+            'icon' => '/',
+            'active' => request()->routeIs('tickets.index'),
+        ],
+        [
+            'header' => 'Discípulos',
+        ],
+
+        [
+            'name' => 'Discípulos',
+            'route' => 'personas.index',
+            'icon' => '/',
+            'active' => request()->routeIs('personas.index'),
+        ],
+
+        [
+            'name' => 'Nivel de liderazgo',
+            'route' => 'titulos.index',
+            'icon' => '/',
+            'active' => request()->routeIs('titulos.index'),
+        ],
+        [
+            'header' => 'Redes',
+        ],
+
+        [
+            'name' => 'Redes',
+            'route' => 'redes.index',
+            'icon' => '/',
+            'active' => request()->routeIs('redes.index'),
         ],
     ];
 @endphp
