@@ -44,7 +44,8 @@ class TituloController extends BaseController
      */
     public function show(Titulo $titulo)
     {
-        //
+        $personas = $titulo->personas;
+        return view('titulos.show', compact('titulo', 'personas'));
     }
 
     /**

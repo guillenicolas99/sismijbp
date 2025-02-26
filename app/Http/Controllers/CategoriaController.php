@@ -30,7 +30,13 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'string|min:3|max:255|required'
+        ]);
+
+        Categoria::create($data);
+        $this->setFlashMessage('success', 'éxito', 'Categoría creada correctamente');
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -46,7 +52,7 @@ class CategoriaController extends Controller
      */
     public function edit(Categoria $categoria)
     {
-        //
+        return view('categorias.edit', compact('categoria'));
     }
 
     /**
@@ -54,7 +60,16 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required|string|min:3|max:255',
+        ]);
+
+
+        $categoria->update($data);
+
+        $this->setFlashMessage('success', '¡Éxito!', 'Actualizado correctamente');
+
+        return redirect()->route('categorias.index');
     }
 
     /**
@@ -62,6 +77,12 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $deleted = $categoria;
+
+        $categoria->delete();
+
+        $this->setFlashMessage('success', '¡Éxito!', 'Eliminado correctamente "' . $deleted->nombre . '"',);
+
+        return redirect()->route('categorias.index');
     }
 }

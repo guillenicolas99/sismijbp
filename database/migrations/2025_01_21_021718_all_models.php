@@ -31,7 +31,7 @@ return new class extends Migration {
         Schema::create('redes', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique()->nullable(false);
-            $table->boolean('is_active');
+            $table->boolean('is_active')->nullable();
             $table->string('lider_de_red')->unique()->nullable();
             $table->timestamps();
         });
@@ -42,7 +42,8 @@ return new class extends Migration {
             $table->string('genero')->nullable(false);
             $table->string('telefono')->unique()->nullable(false);
             $table->string('cedula')->unique()->nullable();
-            $table->boolean('is_active');
+            $table->boolean('is_active')->nullable();
+            $table->boolean('is_baptized')->nullable();
             $table->foreignId('red_id')->nullable()->constrained('redes')->onDelete('cascade');
             $table->foreignId('titulo_id')->nullable()->constrained('titulos')->onDelete('cascade');
             $table->timestamps();

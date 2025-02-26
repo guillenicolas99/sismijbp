@@ -69,7 +69,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('eventos', EventoController::class);
     Route::resource('tickets', TicketController::class);
     Route::resource('personas', PersonaController::class);
-    Route::resource('redes', RedController::class);
+    Route::resource('redes', RedController::class)->parameters([
+        'redes' => 'red'
+    ]);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('titulos', TituloController::class);
 });

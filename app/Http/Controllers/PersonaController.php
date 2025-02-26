@@ -97,6 +97,11 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
-        //
+        $deleted = $persona;
+        $persona->delete();
+
+        $this->setFlashMessage('success', '¡Éxito!', 'Eliminado correctamente "' . $deleted->nombre . '"',);
+
+        return redirect()->route('personas.index');
     }
 }

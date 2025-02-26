@@ -17,6 +17,11 @@ class Red extends Model
         'lider_de_red',
     ];
 
+    protected $casts = [
+        'fecha' => 'date',
+        'is_active' => 'boolean', // Opcional, pero recomendado
+    ];
+
     public function personas()
     {
         return $this->hasMany(Persona::class);

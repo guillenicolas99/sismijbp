@@ -1,3 +1,6 @@
 <x-app-layout>
-    <h1 class="text-white">Crear categoría</h1>
+    <x-back-button />
+
+    <x-form action="{{route('tickets.store')}}" method="post" buttonText="Crear" titleForm="Agregar Tickets">
+    </x-form>
 </x-app-layout>

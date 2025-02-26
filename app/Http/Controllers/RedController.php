@@ -33,9 +33,11 @@ class RedController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre' => ['required', 'min:3', 'max:255', 'unique'],
-            'lider_de_red' => ['required', 'min:3', 'max:255']
+            'nombre' => ['required', 'min:3', 'max:255'],
+            'lider_de_red' => ['required']
         ]);
+
+        $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
 
         Red::create($data);
         return redirect()->route('redes.index');
@@ -46,7 +48,8 @@ class RedController extends Controller
      */
     public function show(Red $red)
     {
-        //
+        $personas = $red->personas;
+        return view('redes.show', compact('red', 'personas'));
     }
 
     /**
@@ -54,7 +57,8 @@ class RedController extends Controller
      */
     public function edit(Red $red)
     {
-        //
+        $personas = Persona::all();
+        return view('redes.edit', compact('red', 'personas'));
     }
 
     /**
@@ -62,7 +66,15 @@ class RedController extends Controller
      */
     public function update(Request $request, Red $red)
     {
-        //
+        $data = $request->validate([
+            'nombre' => ['required', 'min:3', 'max:255'],
+            'is_active' => ['required'],
+            'lider_de_red' => ['required']
+        ]);
+
+        $red->update($data);
+        $this->setFlashMessage('success', '¡Éxito!', 'Actualizado correctamente');
+        return redirect()->route('redes.index');
     }
 
     /**
@@ -70,6 +82,9 @@ class RedController extends Controller
      */
     public function destroy(Red $red)
     {
-        //
+        $deleted = $red;
+        $red->delete();
+        $this->setFlashMessage('success', 'Éxito', '"' . $deleted->nombre . '" eliminado correctamente');
+        return redirect()->route('redes.index');
     }
 }

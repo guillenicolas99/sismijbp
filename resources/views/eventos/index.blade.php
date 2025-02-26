@@ -2,8 +2,7 @@
 
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl text-white">Lista de evento</h1>
-        <a class="inline-flex items-center px-4 py-2 bg-green-700 dark:bg-green-700 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-green-900 dark:hover:green-900 focus:bg-gray-700 dark:focus:green-900 active:green-900 dark:active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-            href="{{ route('eventos.create') }}">Crear evento</a>
+        <a class="btn btn-green" href="{{ route('eventos.create') }}">Crear evento</a>
     </div>
 
     @if (count($eventos) >= 1)
@@ -48,15 +47,8 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
-                                    <a href="{{ route('eventos.edit', $evento->id) }}"
-                                        class="inline-flex items-center px-4 py-2 bg-yellow-700 dark:bg-yellow-700 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-yellow-900 dark:hover:yellow-900 focus:bg-gray-700 dark:focus:yellow-900 active:yellow-900 dark:active:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">Editar</a>
-
-                                    <form class="delete-form" action="{{ route('eventos.destroy', $evento) }}"
-                                        method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <x-danger-button>Eliminar</x-danger-button>
-                                    </form>
+                                    <a href="{{ route('eventos.edit', $evento->id) }}" class="btn btn-yellow">Editar</a>
+                                    <x-form action="{{ route('eventos.destroy', $evento) }}" method="delete" />
                                 </div>
                             </td>
                         </tr>

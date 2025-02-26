@@ -2,9 +2,7 @@
 
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl text-white">Usuarios</h1>
-        <x-primary-button>
-            Crear usuario
-        </x-primary-button>
+        <a class="btn btn-green" href="{{route('register')}}">Crear Usuario</a>
     </div>
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
