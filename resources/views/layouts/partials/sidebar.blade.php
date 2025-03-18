@@ -25,16 +25,10 @@
             'header' => 'Eventos',
         ],
         [
-            'name' => 'Todos los eventos',
+            'name' => 'Eventos',
             'route' => 'eventos.index',
             'icon' => '/',
             'active' => request()->routeIs('eventos.index'),
-        ],
-        [
-            'name' => 'Tickets',
-            'route' => 'tickets.index',
-            'icon' => '/',
-            'active' => request()->routeIs('tickets.index'),
         ],
         [
             'header' => 'Discípulos',
@@ -48,11 +42,12 @@
         ],
 
         [
-            'name' => 'Nivel de liderazgo',
-            'route' => 'titulos.index',
+            'name' => 'Discipulados',
+            'route' => 'discipulados.index',
             'icon' => '/',
-            'active' => request()->routeIs('titulos.index'),
+            'active' => request()->routeIs('discipulados.index'),
         ],
+
         [
             'header' => 'Redes',
         ],
@@ -62,6 +57,19 @@
             'route' => 'redes.index',
             'icon' => '/',
             'active' => request()->routeIs('redes.index'),
+        ],
+
+        
+        [
+            'header' => 'Evangelismo y afirmación',
+        ],
+
+        
+        [
+            'name' => 'Evangelismo y afirmación',
+            'route' => 'evangelismos.index',
+            'icon' => '/',
+            'active' => request()->routeIs('evangelismos.index'),
         ],
     ];
 @endphp

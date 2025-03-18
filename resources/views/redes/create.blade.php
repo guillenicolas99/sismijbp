@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-back-button />
 
-    <x-form class="mx-auto" action="{{ route('redes.store') }}" method="post" buttonText="Crear" titleForm="Agregar red">
+    <x-form class="mx-auto" action="{{ route('redes.store') }}" method="post" buttonText="Agregar" titleForm="Agregar red"
+        cancel="redes.index">
         <x-error-forms />
 
         <div class="relative z-0 w-full mb-5 group">
@@ -11,10 +12,20 @@
         <div class="relative z-0 w-full mb-5 group">
             <x-input-label value="Seleccione un líder" />
 
-            <x-select-input name="lider_de_red">
+            <x-select-input name="lider_de_red_id">
                 <option selected disabled>Seleccione líder de red</option>
-                @foreach ($personas as $persona)
-                    <option value="{{ $persona->nombre }}">{{ $persona->nombre }}</option>
+                @foreach ($personasNoLideresDeRed as $persona)
+                    <option value="{{ $persona->id }}">{{ $persona->nombre }}</option>
+                @endforeach
+            </x-select-input>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <x-input-label value="Seleccione un sub líder de red" />
+
+            <x-select-input name="lider_de_red_2_id">
+                <option selected disabled>Seleccione líder de red 2</option>
+                @foreach ($personasNoLideresDeRed as $persona)
+                    <option value="{{ $persona->id }}">{{ $persona->nombre }}</option>
                 @endforeach
             </x-select-input>
         </div>

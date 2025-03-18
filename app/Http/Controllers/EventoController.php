@@ -31,7 +31,7 @@ class EventoController extends BaseController
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => 'required|string|min:3|max:255|unique:eventos',
             'fecha' => 'required|date',
             'is_active' => 'required|boolean',
         ]);
@@ -63,7 +63,7 @@ class EventoController extends BaseController
     public function update(Request $request, Evento $evento)
     {
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => "required|string|min:3|max:255|unique:eventos,nombre,{$evento->id}",
             'fecha' => 'required|date',
             'is_active' => 'required|boolean',
         ]);

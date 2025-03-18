@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             PersonaSeeder::class,
             RedSeeder::class,
             TituloSeeder::class,
+            EstadoSeeder::class,
+            RoleSeeder::class,
         ]);
         // User::factory()->create([
         //     'name' => 'Test User',

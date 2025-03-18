@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\DiscipuladoController;
+use App\Http\Controllers\EvangelismoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\RedController;
@@ -72,6 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('redes', RedController::class)->parameters([
         'redes' => 'red'
     ]);
+    Route::get('/api/mentores/{red}', [RedController::class, 'getMentores']);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('titulos', TituloController::class);
+    Route::resource('discipulados', DiscipuladoController::class);
+    Route::resource('evangelismos', EvangelismoController::class);
 });

@@ -6,7 +6,7 @@
     </div>
     @if (count($personas) >= 1)
 
-        <x-table :columns="['#', 'Nombre', 'Cargo', 'Genero', 'Teléfono', 'Estado', 'Red', 'Acciones']">
+        <x-table :columns="['#', 'Nombre', 'Mentores', 'Cargo', 'Genero', 'Teléfono', 'Estado', 'Red', 'Acciones']">
             @foreach ($personas as $persona)
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -17,6 +17,9 @@
                         <a href="{{ route('personas.show', $persona) }}">
                             {{ $persona->nombre }}
                         </a>
+                    </x-tb-table>
+                    <x-tb-table>
+                        {{ $persona->discipulado?->mentor_1 ?? 'Sin mentores' }}
                     </x-tb-table>
                     <x-tb-table>
                         {{ $persona->titulo?->nombre ?? 'Sin cargo' }}
@@ -49,6 +52,7 @@
                 </tr>
             @endforeach
         </x-table>
+        {{ $personas->links() }}
         @push('js')
             <script>
                 const deleteForms = document.querySelectorAll('.delete-form')

@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona;
 use App\Http\Controllers\Controller;
+use App\Models\Discipulado;
 use App\Models\Red;
 use App\Models\Titulo;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $personas = Persona::all();
+        $personas = Persona::paginate(10);
         return view('personas.index', compact('personas'));
     }
 
@@ -26,7 +28,8 @@ class PersonaController extends Controller
     {
         $redes = Red::all();
         $titulos = Titulo::all();
-        return view('personas.create', compact('redes', 'titulos'));
+        $discipulados = Discipulado::all();
+        return view('personas.create', compact('redes', 'titulos', 'discipulados'));
     }
 
     /**
@@ -37,15 +40,19 @@ class PersonaController extends Controller
         $data = $request->validate([
             'nombre' => 'required|string|min:3|max:255',
             'genero' => 'required',
-            'telefono' => 'required|string|max:8',
-            'cedula' => 'nullable|string',
-            'red_id' => 'required',
+            'telefono' => 'required|string|max:8|unique:personas',
+            'cedula' => 'nullable|string|unique:personas',
+            'is_baptized' => 'required|boolean',
+            'is_single' => 'required|boolean',
+            'red_id' => 'nullable',
             'titulo_id' => 'required',
+            'discipulado_id' => 'nullable',
         ]);
 
         // Si is_active no está en el request, lo establecemos en true
         $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
-
+        // 
+        // return $request;
         Persona::create($data);
 
         $this->setFlashMessage('success', '¡Éxito!', 'Creado correctamente');
@@ -57,7 +64,7 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        //
+        return "Vista del discípulo <strong>{$persona->nombre}</strong>";
     }
 
     /**
@@ -67,7 +74,8 @@ class PersonaController extends Controller
     {
         $redes = Red::all();
         $titulos = Titulo::all();
-        return view('personas.edit', compact('persona', 'redes', 'titulos'));
+        $discipulados = Discipulado::all();
+        return view('personas.edit', compact('persona', 'redes', 'titulos', 'discipulados'));
     }
 
     /**
@@ -76,14 +84,19 @@ class PersonaController extends Controller
     public function update(Request $request, Persona $persona)
     {
         $data = $request->validate([
-            'nombre' => 'required|string|min:3|max:255',
+            'nombre' => "required|string|min:3|max:255|unique:personas,nombre,{$persona->id}",
             'genero' => 'required',
-            'telefono' => 'required|string|max:8',
-            'cedula' => 'nullable|string',
-            'is_active' => 'required',
-            'red_id' => 'required',
-            'titulo_id' => 'required',
+            'telefono' => "required|string|max:8|unique:personas,telefono,{$persona->id}",
+            'cedula' => "nullable|string|unique:personas,cedula,{$persona->id}",
+            'is_active' => 'required|boolean',
+            'is_baptized' => 'required|boolean',
+            'is_single' => 'required|boolean',
+            'red_id' => 'nullable',
+            'titulo_id' => 'nullable',
+            'discipulado_id' => 'nullable|exists:discipulados,id',
         ]);
+
+        $data['discipulado_id'] = $request->has('discipulado_id') ? $request->discipulado_id : null;
 
         $persona->update($data);
 

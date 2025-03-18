@@ -6,7 +6,7 @@
     </form>
 @else
     <x-card-form>
-        <x-title-form>{{$titleForm}}</x-title-form>
+        <x-title-form>{{ $titleForm }}</x-title-form>
 
         <x-error-forms />
 
@@ -24,6 +24,7 @@
             <x-primary-button>
                 {{ $buttonText }}
             </x-primary-button>
+            <a class="btn btn-red" href="{{route($cancel)}}">Cancelar</a>
         </form>
     </x-card-form>
 @endif

@@ -16,31 +16,31 @@ class RedSeeder extends Seeder
         $red = new Red();
         $red->nombre = 'Emmanuel';
         $red->is_active = true;
-        $red->lider_de_red = 1;
+        $red->lider_de_red_id = 1;
         $red->save();
 
         $red = new Red();
         $red->nombre = 'Adonai';
         $red->is_active = true;
-        $red->lider_de_red = 2;
+        $red->lider_de_red_id = 1;
         $red->save();
 
         $red = new Red();
         $red->nombre = 'El Elyon';
         $red->is_active = true;
-        $red->lider_de_red = 3;
+        $red->lider_de_red_id = 1;
         $red->save();
 
         $red = new Red();
         $red->nombre = 'YAHWEH';
         $red->is_active = true;
-        $red->lider_de_red = 4;
+        $red->lider_de_red_id = 1;
         $red->save();
 
         $red = new Red();
         $red->nombre = 'El Shaddai';
         $red->is_active = true;
-        $red->lider_de_red = 5;
+        $red->lider_de_red_id = 1;
         $red->save();
     }
 }

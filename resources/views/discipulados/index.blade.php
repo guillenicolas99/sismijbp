@@ -2,34 +2,32 @@
     <x-back-button />
 
     <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl text-white">Lista de redes</h1>
-        <a class="btn btn-green" href="{{ route('redes.create') }}">Agregar Red</a>
+        <h1 class="text-2xl text-white">Lista de discipulados</h1>
+        <a class="btn btn-green" href="{{ route('discipulados.create') }}">Agregar Discipulado</a>
     </div>
 
-    @if (count($redes) >= 1)
-        <x-table :columns="['#', 'Nombre', 'Estado', 'Líder de Red', 'Acciones']">
-            @foreach ($redes as $red)
+    @if (count($discipulados) >= 1)
+        <x-table :columns="['#', 'Mentores', 'Red', 'Estado', 'Acciones']">
+            @foreach ($discipulados as $discipulado)
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <x-tb-table>
                         {{ $loop->iteration }} {{-- Número de iteración automáticamente --}}
                     </x-tb-table>
                     <x-tb-table>
-                        <a href="{{ route('redes.show', $red) }}">
-                            {{ $red->nombre }}
-                        </a>
+                        {{ $discipulado->mentor_1->nombre }}
+                        {{ $discipulado->mentor_2?->nombre != null ? " y {$discipulado->mentor_2?->nombre}" : '' }}
                     </x-tb-table>
                     <x-tb-table>
-                        {{ $red->is_active ? 'Activo' : 'Inactivo' }}
+                        {{ $discipulado->red?->nombre ?? 'Sin Red' }}
                     </x-tb-table>
                     <x-tb-table>
-                        {{ $red->liderRed1?->nombre ?? 'Sin líder' }}
-                        {{ $red->liderRed2?->nombre != null ? " y {$red->liderRed2?->nombre}" : '' }}
+                        {{ $discipulado->is_active ? 'Activo' : 'Inactivo' }}
                     </x-tb-table>
                     <x-tb-table>
                         <div class="flex space-x-2">
-                            <a href="{{ route('redes.edit', $red->id) }}" class="btn btn-yellow">Editar</a>
-                            <x-form action="{{ route('redes.destroy', $red->id) }}" method="DELETE" />
+                            <a href="{{ route('discipulados.edit', $discipulado->id) }}" class="btn btn-yellow">Editar</a>
+                            <x-form action="{{ route('discipulados.destroy', $discipulado->id) }}" method="DELETE" />
                         </div>
                     </x-tb-table>
                 </tr>
@@ -62,7 +60,7 @@
             </script>
         @endpush
     @else
-        <x-alert-blue>No hay redes registrados</x-alert-blue>
+        <x-alert-blue>No hay discipulados registrados</x-alert-blue>
     @endif
 
 </x-app-layout>

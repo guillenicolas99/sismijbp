@@ -31,7 +31,7 @@ class TituloController extends BaseController
     public function store(Request $request)
     {
         $data = $request->validate([
-            'nombre' => 'string|min:3|max:255|required'
+            'nombre' => 'string|min:3|max:255|required|unique:titulos'
         ]);
 
         Titulo::create($data);
@@ -62,7 +62,7 @@ class TituloController extends BaseController
     public function update(Request $request, Titulo $titulo)
     {
         $data = $request->validate([
-            'nombre' => 'string|min:3|max:255|required'
+            'nombre' => "string|min:3|max:255|required|unique:titulos,nombre,{$titulo->id}"
         ]);
 
         $titulo->update($data);

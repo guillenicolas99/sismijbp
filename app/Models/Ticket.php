@@ -28,6 +28,11 @@ class Ticket extends Model
         return $this->belongsTo(Evento::class);
     }
 
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class);
+    }
+
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);

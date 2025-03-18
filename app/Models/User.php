@@ -6,29 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    const ROLE_ADMIN = 'admin';
-    const ROLE_EDITOR = 'editor';
-    const ROLE_USER = 'user';
-
-    public function isAdmin()
-    {
-        return $this->role === self::ROLE_ADMIN;
-    }
-
-    public function isEditor()
-    {
-        return $this->role === self::ROLE_EDITOR;
-    }
-
-    public function isUser()
-    {
-        return $this->role === self::ROLE_USER;
-    }
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

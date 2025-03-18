@@ -2,7 +2,7 @@
     <x-back-button />
 
     <x-form action="{{ route('categorias.update', $categoria->id) }}" method="PUT" buttonText="Actualizar"
-        titleForm="Editar Categoría" :categoria="$categoria">
+        titleForm="Editar categoría" cancel="categorias.index">
         <div class="relative z-0 w-full mb-5 group">
             <x-input-label value="Nombre" />
             <x-text-input class="block mt-1 w-full" type="text" name="nombre"

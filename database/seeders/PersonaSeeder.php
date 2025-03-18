@@ -38,14 +38,6 @@ class PersonaSeeder extends Seeder
         $persona->save();
 
         $persona = new Persona();
-        $persona->nombre = 'Milagros Guitiérrez';
-        $persona->genero = 'F';
-        $persona->telefono = '51123456789';
-        $persona->cedula = '333-000000-0000A';
-        $persona->is_active = true;
-        $persona->save();
-
-        $persona = new Persona();
         $persona->nombre = 'Clorinda Zelaya';
         $persona->genero = 'F';
         $persona->telefono = '41123456789';

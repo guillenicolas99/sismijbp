@@ -17,8 +17,17 @@ class Persona extends Model
         'telefono',
         'cedula',
         'is_active',
+        'is_baptized',
+        'is_single',
         'red_id',
-        'titulo_id'
+        'titulo_id',
+        'discipulado_id',
+    ];
+
+    protected $casts = [
+        'is_single' => 'boolean',
+        'is_baptized' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     public function red()
@@ -29,6 +38,11 @@ class Persona extends Model
     public function titulo()
     {
         return $this->belongsTo(Titulo::class);
+    }
+
+    public function discipulado()
+    {
+        return $this->belongsTo(Discipulado::class);
     }
 
     public function tickets()

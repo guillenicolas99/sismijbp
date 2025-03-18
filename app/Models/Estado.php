@@ -5,24 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Evento extends Model
+class Estado extends Model
 {
     use HasFactory;
 
-    protected $table = 'eventos';
+    protected $table = 'estados';
 
     protected $fillable = [
         'nombre',
-        'image_path',
-        'fecha',
-        'is_active',
     ];
-
-    protected $casts = [
-        'fecha' => 'date',
-        'is_active' => 'boolean', // Opcional, pero recomendado
-    ];
-
 
     public function tickets()
     {

@@ -2,8 +2,7 @@
     <x-back-button />
 
     <x-form action="{{ route('redes.update', $red->id) }}" method="PUT" buttonText="Actualizar"
-        titleForm="Actualizar red">
-        <x-error-forms />
+        titleForm="Actualizar red" cancel="redes.index">
 
         <div class="relative z-0 w-full mb-5 group">
             <x-input-label value="Nombre de red" />
@@ -16,10 +15,23 @@
         <div class="relative z-0 w-full mb-5 group">
             <x-input-label value="Seleccione un líder" />
 
-            <x-select-input name="lider_de_red">
-                <option>Seleccione líder de red</option>
+            <x-select-input name="lider_de_red_id">
+                <option value="">Seleccione líder de red</option>
                 @foreach ($personas as $persona)
-                    <option value="{{ $persona->nombre }}"
+                    <option value="{{ $persona->id }}"
+                        {{ $persona->nombre == $red->lider_de_red ? 'selected' : '' }}>
+                        {{ $persona->nombre }}</option>
+                @endforeach
+            </x-select-input>
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <x-input-label value="Seleccione un líder" />
+
+            <x-select-input name="lider_de_red_2_id">
+                <option value="">Seleccione líder de red</option>
+                @foreach ($personas as $persona)
+                    <option value="{{ $persona->id }}"
                         {{ $persona->nombre == $red->lider_de_red ? 'selected' : '' }}>
                         {{ $persona->nombre }}</option>
                 @endforeach
