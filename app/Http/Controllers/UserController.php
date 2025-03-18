@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Evangelismo;
 use App\Http\Controllers\Controller;
-use App\Models\Persona;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
-class EvangelismoController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('evangelismos.index');
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -22,8 +23,7 @@ class EvangelismoController extends Controller
      */
     public function create()
     {
-        $personas = Persona::all();
-        return view('evangelismos.create', compact('personas'));
+        //
     }
 
     /**
@@ -31,13 +31,13 @@ class EvangelismoController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Evangelismo $evangelismo)
+    public function show(string $id)
     {
         //
     }
@@ -45,23 +45,25 @@ class EvangelismoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evangelismo $evangelismo)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evangelismo $evangelismo)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->roles()->sync($request->roles);
+        return view('users.edit', $user)->with('info', 'Se asignó los roles correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evangelismo $evangelismo)
+    public function destroy(string $id)
     {
         //
     }

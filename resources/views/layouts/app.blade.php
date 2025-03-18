@@ -39,6 +39,7 @@
     @endif
 
     @stack('js')
+    @stack('test')
 </body>
 
 </html>

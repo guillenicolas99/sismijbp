@@ -17,6 +17,7 @@ use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\RedController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TituloController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -65,7 +66,7 @@ Route::middleware('auth')->group(function () {
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
-    Route::get('users', [RegisteredUserController::class, 'index'])->name('users');
+    // Route::get('users', [RegisteredUserController::class, 'index'])->name('users');
 
     //RUTAS ADMIN
     Route::resource('eventos', EventoController::class);
@@ -79,4 +80,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('titulos', TituloController::class);
     Route::resource('discipulados', DiscipuladoController::class);
     Route::resource('evangelismos', EvangelismoController::class);
+    Route::resource('users', UserController::class);
 });

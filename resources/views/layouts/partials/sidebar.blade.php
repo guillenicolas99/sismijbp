@@ -17,7 +17,7 @@
         ],
         [
             'name' => 'Administrar roles',
-            'route' => 'users',
+            'route' => 'users.index',
             'icon' => '/',
             'active' => request()->routeIs('users.index'),
         ],

@@ -3,43 +3,66 @@
 
     <x-form action="{{ route('discipulados.store') }}" method="post" buttonText="Agregar" titleForm="Agregar discipulado"
         cancel="discipulados.index">
-        <div class="relative z-0 w-full mb-5 group">
-            <x-input-label value="Seleccione un mentor" />
+        <x-select-input name="red_id" id="red_id">
+            <option selected disabled>Seleccione la red</option>
+            @foreach ($redes as $red)
+                <option value="{{ $red->id }}">{{ $red->nombre }}</option>
+            @endforeach
+        </x-select-input>
 
-            <x-select-input name="mentor_1_id">
-                <option selected disabled>Seleccione mentor 1</option>
-                @foreach ($mentores as $mentor)
-                    <option value="{{ $mentor->id }}" {{ old('mentor_1_id') == $mentor->nombre ? 'selected' : '' }}>
-                        {{ $mentor->nombre }} ({{ $mentor->titulo?->nombre ?? 'sin título' }})
-                    </option>
-                @endforeach
-            </x-select-input>
-        </div>
+        <x-select-input name="mentor_1_id" id="mentor_1_id">
+            <option selected disabled>Seleccione mentor 1</option>
+        </x-select-input>
 
-        <div class="relative z-0 w-full mb-5 group">
-            <x-input-label value="Nombre de mentor 2" />
-
-            <x-select-input name="mentor_2_id">
-                <option selected disabled>Seleccione mentor 2</option>
-                @foreach ($mentores as $mentora)
-                    <option value="{{ $mentora->id }}" {{ old('mentor_2_id') == $mentora->nombre ? 'selected' : '' }}>
-                        {{ $mentora->nombre }}
-                    </option>
-                @endforeach
-            </x-select-input>
-        </div>
-
-        <div class="relative z-0 w-full mb-5 group">
-            <x-input-label value="Red" />
-            <x-select-input name="red_id">
-                <option selected disabled>Seleccione la red</option>
-                @foreach ($redes as $red)
-                    <option value="{{ $red->id }}" {{ old('red_id') == $red->id ? 'selected' : '' }}>
-                        {{ $red->nombre }}
-                    </option>
-                @endforeach
-            </x-select-input>
-        </div>
+        <x-select-input name="mentor_2_id" id="mentor_2_id">
+            <option selected disabled>Seleccione mentor 2</option>
+        </x-select-input>
 
     </x-form>
+
+    @push('test')
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const selectRed = document.getElementById('red_id');
+                const mentor1Select = document.getElementById('mentor_1_id');
+                const mentor2Select = document.getElementById('mentor_2_id');
+
+                selectRed.addEventListener('change', async () => {
+                    const redId = selectRed.value;
+
+                    // Limpia los selects de mentores anteriores
+                    mentor1Select.innerHTML = '<option selected disabled>Seleccione mentor 1</option>';
+                    mentor2Select.innerHTML = '<option selected disabled>Seleccione mentor 2</option>';
+
+                    if (redId) {
+                        try {
+                            const response = await fetch(`/api/mentores/${redId}`);
+                            const data = await response.json();
+
+                            console.log(data);
+
+                            if (data.length) {
+                                data.forEach(mentor => {
+                                    mentor1Select.innerHTML +=
+                                        `<option value="${mentor.id}">${mentor.nombre}</option>`;
+                                    mentor2Select.innerHTML +=
+                                        `<option value="${mentor.id}">${mentor.nombre}</option>`;
+                                });
+                            } else {
+                                mentor1Select.innerHTML =
+                                    '<option selected disabled>No hay mentores</option>';
+                                mentor2Select.innerHTML =
+                                    '<option selected disabled>No hay mentores</option>';
+                            }
+                        } catch (error) {
+                            console.error('Error cargando mentores:', error);
+                        }
+                    }
+                });
+            });
+        </script>
+    @endpush
+
+
+
 </x-app-layout>

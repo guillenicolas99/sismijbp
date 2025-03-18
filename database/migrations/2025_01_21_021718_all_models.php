@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+        Schema::create('telefonias', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre')->unique()->nullable(false);
+            $table->timestamps();
+        });
+
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique()->nullable(false);
@@ -46,8 +52,9 @@ return new class extends Migration {
             $table->boolean('is_active')->default(true);
             $table->boolean('is_baptized')->default(false);
             $table->boolean('is_single')->default(true);
-            $table->foreignId('red_id')->nullable()->constrained('redes')->onDelete('set null'); // Relación con Red
-            $table->foreignId('titulo_id')->nullable()->constrained('titulos')->onDelete('set null'); // Relación con Red
+            $table->foreignId('red_id')->nullable()->constrained('redes')->onDelete('set null'); // Relación con redes
+            $table->foreignId('titulo_id')->nullable()->constrained('titulos')->onDelete('set null'); // Relación con titulos
+            $table->foreignId('telefonia_id')->nullable()->constrained('telefonias')->onDelete('set null'); // Relación con telefonias
             $table->timestamps();
         });
 
@@ -146,5 +153,8 @@ return new class extends Migration {
         Schema::dropIfExists('titulos');
         Schema::dropIfExists('eventos');
         Schema::dropIfExists('categorias');
+        Schema::dropIfExists('telefonias');
+        Schema::dropIfExists('estados');
+        Schema::dropIfExists('discipulados');
     }
 };

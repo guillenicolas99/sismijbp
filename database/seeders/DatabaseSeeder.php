@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            RoleSeeder::class,
             UserSeeder::class,
             CategoriaSeeder::class,
             PersonaSeeder::class,
             RedSeeder::class,
             TituloSeeder::class,
             EstadoSeeder::class,
-            RoleSeeder::class,
         ]);
         // User::factory()->create([
         //     'name' => 'Test User',
