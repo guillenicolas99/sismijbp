@@ -54,11 +54,23 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        $user->roles()->sync($request->roles);
-        return view('users.edit', $user)->with('info', 'Se asignó los roles correctamente');
+        $user = User::findOrFail($id);
+
+        // Validar la solicitud
+        $request->validate([
+            'roles' => 'required|array',
+            'roles.*' => 'exists:roles,name',
+        ]);
+
+        // Sincronizar roles usando Spatie
+        $user->syncRoles($request->roles);
+
+        return redirect()->route('users.edit', $user->id)
+            ->with('success', 'Roles actualizados correctamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
