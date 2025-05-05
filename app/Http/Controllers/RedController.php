@@ -64,7 +64,7 @@ class RedController extends Controller
         $data['is_active'] = $request->has('is_active') ? $request->is_active : true;
 
         Red::create($data);
-        $this->setFlashMessage('success', 'Éxito', "Red agregada");
+        $this->addFlashMessage();
         return redirect()->route('redes.index');
     }
 
@@ -100,7 +100,7 @@ class RedController extends Controller
 
         // return $data;
         $red->update($data);
-        $this->setFlashMessage('success', '¡Éxito!', 'Actualizado correctamente');
+        $this->updateFlashMessage();
         return redirect()->route('redes.index');
     }
 
@@ -111,7 +111,7 @@ class RedController extends Controller
     {
         $deleted = $red;
         $red->delete();
-        $this->setFlashMessage('success', 'Éxito', '"' . $deleted->nombre . '" eliminado correctamente');
+        $this->deleteFlashMessage("red $deleted->nombre");
         return redirect()->route('redes.index');
     }
 }

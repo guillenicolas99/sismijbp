@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use App\Http\Controllers\Controller;
+use App\Models\Evento;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -25,12 +26,19 @@ class TicketController extends Controller
         return view('tickets.create');
     }
 
+    public function asignarTicket($id)
+    {
+        $tickets = Ticket::where('evento_id', $id)->with('categoria', 'persona', 'estado')->paginate(25);
+        $evento = Evento::find($id);
+        return view('tickets.asignar', compact('tickets', 'evento'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

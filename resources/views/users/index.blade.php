@@ -1,5 +1,10 @@
 <x-app-layout>
 
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl text-white">Lista de discipulados</h1>
+        <a class="btn btn-green" href="{{ route('register') }}">Agregar usuario</a>
+    </div>
+
     <x-table :columns="['#', 'Nombre', 'Correo', 'Rol', 'Acciones']">
 
         @foreach ($users as $user)
@@ -18,7 +23,7 @@
                     {{ $user->name }}
                 </x-tb-table>
                 <x-tb-table>
-                    <a class="btn btn-yellow" href="{{route('users.edit', $user)}}">Editar</a>
+                    <a class="btn btn-yellow" href="{{ route('users.edit', $user) }}">Editar</a>
                 </x-tb-table>
             </tr>
         @endforeach

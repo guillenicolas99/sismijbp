@@ -55,6 +55,7 @@
         </div>
 
         <button class="btn bg-cyan-700 rounded mt-3" type="submit">Asignar rol</button>
+        <a class="btn bg-red-700 rounded mt-3" href="{{route('users.index')}}">Volver</a>
     </form>
 
 </x-app-layout>

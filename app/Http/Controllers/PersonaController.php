@@ -55,7 +55,7 @@ class PersonaController extends Controller
         // return $request;
         Persona::create($data);
 
-        $this->setFlashMessage('success', '¡Éxito!', 'Creado correctamente');
+        $this->addFlashMessage();
         return redirect()->route('personas.index');
     }
 
@@ -100,7 +100,7 @@ class PersonaController extends Controller
 
         $persona->update($data);
 
-        $this->setFlashMessage('success', '¡Éxito!', 'Actualizado correctamente');
+        $this->updateFlashMessage();
 
         return redirect()->route('personas.index');
     }
@@ -113,7 +113,7 @@ class PersonaController extends Controller
         $deleted = $persona;
         $persona->delete();
 
-        $this->setFlashMessage('success', '¡Éxito!', 'Eliminado correctamente "' . $deleted->nombre . '"',);
+        $this->deleteFlashMessage($deleted->nombre);
 
         return redirect()->route('personas.index');
     }

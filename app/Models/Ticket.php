@@ -17,11 +17,21 @@ class Ticket extends Model
         'precio',
         'descuento',
         'fecha_descuento',
-        'estado',
+        'estado_id',
         'evento_id',
         'categoria_id',
         'persona_id',
     ];
+    protected function casts(): array
+    {
+        return [
+            'fecha_descuento' => 'date',
+            'estado_id' => 'integer',
+            'evento_id' => 'integer',
+            'categoria_id' => 'integer',
+            'persona_id' => 'integer',
+        ];
+    }
 
     public function evento()
     {

@@ -48,6 +48,7 @@ return new class extends Migration {
             $table->string('nombre');
             $table->enum('genero', ['M', 'F'])->nullable(false);
             $table->string('telefono')->unique();
+            $table->string('correo')->unique();
             $table->string('cedula')->unique()->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_baptized')->default(false);

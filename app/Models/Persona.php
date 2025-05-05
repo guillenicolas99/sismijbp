@@ -24,11 +24,14 @@ class Persona extends Model
         'discipulado_id',
     ];
 
-    protected $casts = [
-        'is_single' => 'boolean',
-        'is_baptized' => 'boolean',
-        'is_active' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'is_baptized' => 'boolean',
+            'is_single' => 'boolean',
+        ];
+    }
 
     public function red()
     {

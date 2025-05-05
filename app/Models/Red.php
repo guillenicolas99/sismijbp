@@ -18,10 +18,14 @@ class Red extends Model
         'lider_de_red_2_id',
     ];
 
-    protected $casts = [
-        'fecha' => 'date',
-        'is_active' => 'boolean', // Opcional, pero recomendado
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'lider_de_red_id' => 'integer',
+            'lider_de_red_2_id' => 'integer',
+        ];
+    }
 
     public function personas()
     {

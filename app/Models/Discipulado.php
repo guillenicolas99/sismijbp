@@ -13,9 +13,13 @@ class Discipulado extends Model
         'is_active',
         'red_id',
     ];
-    protected $casts = [
-        'is_active' => 'boolean', // Opcional, pero recomendado
-    ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
 
     public function personas()
     {

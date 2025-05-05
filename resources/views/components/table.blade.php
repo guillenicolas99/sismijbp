@@ -9,7 +9,7 @@
                 @endforeach
             </tr>
         </thead>
-        <tbody>
+        <tbody class="zebra">
             {{ $slot }}
         </tbody>
     </table>

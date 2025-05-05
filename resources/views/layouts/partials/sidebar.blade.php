@@ -10,12 +10,6 @@
             'header' => 'Administración',
         ],
         [
-            'name' => 'Crear usuario',
-            'route' => 'register',
-            'icon' => '/',
-            'active' => request()->routeIs('register'),
-        ],
-        [
             'name' => 'Administrar roles',
             'route' => 'users.index',
             'icon' => '/',
@@ -59,12 +53,10 @@
             'active' => request()->routeIs('redes.index'),
         ],
 
-        
         [
             'header' => 'Evangelismo y afirmación',
         ],
 
-        
         [
             'name' => 'Evangelismo y afirmación',
             'route' => 'evangelismos.index',

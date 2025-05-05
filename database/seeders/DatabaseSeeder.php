@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CategoriaSeeder::class,
-            PersonaSeeder::class,
             RedSeeder::class,
             TituloSeeder::class,
+            PersonaSeeder::class,
             EstadoSeeder::class,
+            TelefoniaSeeder::class,
         ]);
         // User::factory()->create([
         //     'name' => 'Test User',

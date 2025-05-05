@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-card-form>
-        <x-title-form>CREAR USUARIO</x-title-form>
+        <x-title-form>AGREGAR USUARIO</x-title-form>
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
@@ -40,11 +40,15 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-4 gap-3">
                 <x-primary-button class="ms-4">
-                    {{ __('Register') }}
+                    {{ __('Guardar') }}
                 </x-primary-button>
+                <a href="{{ route('users.index') }}" class="btn btn-red">
+                    Cancelar
+                </a>
             </div>
+
         </form>
     </x-card-form>
 </x-app-layout>

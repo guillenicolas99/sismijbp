@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Evangelismo;
-use App\Http\Controllers\Controller;
-use App\Models\Persona;
+use App\Models\Comentario;
 use Illuminate\Http\Request;
 
-class EvangelismoController extends Controller
+class ComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('evangelismos.index');
+        //
     }
 
     /**
@@ -22,8 +20,7 @@ class EvangelismoController extends Controller
      */
     public function create()
     {
-        $personas = Persona::all();
-        return view('evangelismos.create', compact('personas'));
+        //
     }
 
     /**
@@ -31,13 +28,23 @@ class EvangelismoController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $data = $request->validate([
+            'comentario' => 'required',
+            'persona_seguimiento_id' => 'required',
+        ]);
+
+        // return $data;
+
+        Comentario::create($data);
+        session()->flash('success', 'se agregó comentario');
+
+        return redirect()->route('personasSeguimiento.show', $data['persona_seguimiento_id']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Evangelismo $evangelismo)
+    public function show(Comentario $comentario)
     {
         //
     }
@@ -45,7 +52,7 @@ class EvangelismoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Evangelismo $evangelismo)
+    public function edit(Comentario $comentario)
     {
         //
     }
@@ -53,7 +60,7 @@ class EvangelismoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Evangelismo $evangelismo)
+    public function update(Request $request, Comentario $comentario)
     {
         //
     }
@@ -61,7 +68,7 @@ class EvangelismoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Evangelismo $evangelismo)
+    public function destroy(Comentario $comentario)
     {
         //
     }

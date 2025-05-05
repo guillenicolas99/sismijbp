@@ -48,8 +48,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $this->addFlashMessage();
+
         // Auth::login($user);
 
-        return redirect(route('users', absolute: false));
+        return redirect(route('users.index', absolute: false));
     }
 }

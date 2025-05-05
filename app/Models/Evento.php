@@ -18,10 +18,13 @@ class Evento extends Model
         'is_active',
     ];
 
-    protected $casts = [
-        'fecha' => 'date',
-        'is_active' => 'boolean', // Opcional, pero recomendado
-    ];
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'fecha' => 'date',
+        ];
+    }
 
 
     public function tickets()

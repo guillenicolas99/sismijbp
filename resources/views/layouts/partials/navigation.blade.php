@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }"
-    class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 z-[900] sticky top-0 left-0">
+    class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 z-50 sticky top-0 left-0">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -36,7 +36,14 @@
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div>
+                                {{ Auth::user()->name }}
+                                {{-- ROLE NAME --}}
+                                <span class="text-xs text-gray-500 dark:text-gray-400">
+                                    ({{ Auth::user()->getRoleNames()->first() }})
+                                    {{-- ROLE NAME --}}
+                                </span>
+                            </div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"

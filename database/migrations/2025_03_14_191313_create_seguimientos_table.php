@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comentarios', function (Blueprint $table) {
+        Schema::create('grupos_seguimientos', function (Blueprint $table) {
             $table->id();
-            $table->string('comentario');
-            $table->timestamps();
-        });
-
-        Schema::create('grupo_seguimiento', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->dateTime('fecha');
+            $table->foreignId('red_id')->nullable()->constrained('redes')->onDelete('cascade'); // Relación con red
             $table->timestamps();
         });
 
@@ -36,9 +31,25 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_baptized')->default(false);
-            $table->foreignId('telefonia_id')->nullable()->constrained('telefonias')->onDelete('cascade'); // Relación con telefonia
-            $table->foreignId('comentario_id')->nullable()->constrained('comentarios')->onDelete('cascade'); // Relación con telefonia
-            $table->foreignId('persona_id')->nullable()->constrained('personas')->onDelete('cascade'); // Relación con telefonia
+            $table->boolean('is_call_answer')->default(false);
+            $table->boolean('is_current_visitor')->default(false);
+            $table->boolean('is_in_cpz')->default(false);
+            $table->boolean('is_back_to_church')->default(false);
+            $table->boolean('had_number')->default(false);
+            $table->boolean('is_phone_on')->default(false);
+            $table->boolean('is_from_other_church')->default(false);
+            $table->boolean('other')->default(false);
+            $table->foreignId('telefonia_id')->nullable(true)->constrained('telefonias')->onDelete('cascade'); // Relación con telefonia
+            $table->foreignId('consolidador_id')->nullable(true)->constrained('personas')->onDelete('cascade'); // Relación con telefonia
+            $table->foreignId('grupo_seguimiento_id')->nullable(true)->constrained('grupos_seguimientos')->onDelete('cascade'); // Relación con telefonia
+            $table->timestamps();
+        });
+
+        Schema::create('comentarios', function (Blueprint $table) {
+            $table->id();
+            $table->string('comentario');
+            $table->foreignId('persona_seguimiento_id')->constrained('personas_seguimientos')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -48,7 +59,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('comentarios');
-        Schema::dropIfExists('grupo_seguimiento');
+        Schema::dropIfExists('grupos_seguimientos');
         Schema::dropIfExists('personas_seguimientos');
     }
 };

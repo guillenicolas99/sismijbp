@@ -14,4 +14,14 @@ class Asistencia extends Model
         'fecha',
         'asistio',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'asistio' => 'boolean',
+            'fecha' => 'date',
+            'grupo_id' => 'integer',
+            'persona_id' => 'integer',
+        ];
+    }
 }

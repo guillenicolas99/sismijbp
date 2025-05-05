@@ -60,7 +60,7 @@ class DiscipuladoController extends Controller
 
         // return $data;
         Discipulado::create($data);
-        $this->setFlashMessage('success', 'Éxito', 'Discipulado agregado correctamente');
+        $this->addFlashMessage();
         return redirect()->route('discipulados.index');
     }
 
@@ -96,7 +96,7 @@ class DiscipuladoController extends Controller
 
         // return $data;
         $discipulado->update($data);
-        $this->setFlashMessage('success', 'Éxito', 'Discipulado actualizado correctamente');
+        $this->updateFlashMessage();
         return redirect()->route('discipulados.index');
     }
 

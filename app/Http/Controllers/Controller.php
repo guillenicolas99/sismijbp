@@ -4,8 +4,21 @@ namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    protected function setFlashMessage($icon, $title, $text)
+    protected function addFlashMessage()
     {
-        session()->flash('swal', compact('icon', 'title', 'text'));
+        $text = 'Agregado correctamente.';
+        session()->flash('success', $text);
+    }
+
+    protected function updateFlashMessage()
+    {
+        $text = 'Actualizado correctamente.';
+        session()->flash('success', $text);
+    }
+
+    protected function deleteFlashMessage($message = '')
+    {
+        $text = $message. ' Eliminado correctamente.'; 
+        session()->flash('success', $text);
     }
 }

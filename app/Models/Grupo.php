@@ -16,6 +16,15 @@ class Grupo extends Model
         'escuela_id',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+            'fecha_inicio' => 'date',
+            'fecha_fin' => 'date',
+        ];
+    }
+
     public function escuela()
     {
         return $this->belongsTo(Escuela::class);

@@ -10,10 +10,12 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DiscipuladoController;
-use App\Http\Controllers\EvangelismoController;
+use App\Http\Controllers\GrupoSeguimientoController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\PersonaSeguimientoController;
 use App\Http\Controllers\RedController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TituloController;
@@ -70,7 +72,11 @@ Route::middleware('auth')->group(function () {
 
     //RUTAS ADMIN
     Route::resource('eventos', EventoController::class);
+    Route::get('/eventos/getTicketInfo/{codigo}', [EventoController::class, 'getTicketInfo']);
+    
     Route::resource('tickets', TicketController::class);
+    Route::get('/tickets/asignar/{id}', [TicketController::class, 'asignarTicket'])->name('tickets.asignar');
+
     Route::resource('personas', PersonaController::class);
     Route::resource('redes', RedController::class)->parameters([
         'redes' => 'red'
@@ -79,6 +85,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('categorias', CategoriaController::class);
     Route::resource('titulos', TituloController::class);
     Route::resource('discipulados', DiscipuladoController::class);
-    Route::resource('evangelismos', EvangelismoController::class);
+    Route::resource('evangelismos', GrupoSeguimientoController::class);
     Route::resource('users', UserController::class);
+    Route::resource('personasSeguimiento', PersonaSeguimientoController::class);
+    Route::resource('comentarios', ComentarioController::class);
+    Route::put('personaSeguimiento/{id}/disable', [PersonaSeguimientoController::class, 'setDisable'])->name('personasSeguimiento.disable');
+    Route::put('personaSeguimiento/{id}/enable', [PersonaSeguimientoController::class, 'setEnable'])->name('personasSeguimiento.enable');
 });
