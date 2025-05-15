@@ -115,44 +115,44 @@ class EventoController extends Controller
         }
     }
 
-
-
-
-
-
     /**
      * Display the specified resource.
      */
     public function show(Request $request, Evento $evento)
     {
-        $query = Ticket::where('evento_id', $evento->id);
+        $query = $evento->tickets()->with(['persona', 'categoria', 'estado']);
 
-        // Filtro por código de ticket
         if ($request->filled('codigo')) {
             $query->where('codigo', 'like', '%' . $request->codigo . '%');
         }
 
-        // Filtro por categoría
         if ($request->filled('categoria_id')) {
             $query->where('categoria_id', $request->categoria_id);
         }
 
-        // Filtro por estado
         if ($request->filled('estado_id')) {
             $query->where('estado_id', $request->estado_id);
         }
 
-        // Filtro por red
         if ($request->filled('red_id')) {
-            $query->where('red_id', $request->red_id);
+            $query->whereHas('persona', function ($q) use ($request) {
+                $q->where('red_id', $request->red_id);
+            });
         }
 
-        $tickets = $query->with(['estado', 'categoria', 'persona'])->paginate(25);
-        $categorias = Categoria::all();
-        $estados = Estado::all();
-        $redes = Red::all();
+        $tickets = $query->paginate(20); // o ->get() si vas a exportar todo
 
-        return view('eventos.show', compact('evento', 'tickets', 'categorias', 'estados', 'redes'));
+        if ($request->tipo_accion === 'pdf') {
+            return $this->generarPDF($tickets, $evento);
+        }
+
+        return view('eventos.show', [
+            'evento' => $evento,
+            'tickets' => $tickets,
+            'categorias' => Categoria::all(),
+            'estados' => Estado::all(),
+            'redes' => Red::all(),
+        ]);
     }
 
     public function getTicketInfo($codigo)
@@ -167,12 +167,18 @@ class EventoController extends Controller
             'codigo' => $ticket->codigo,
             'precio' => $ticket->precio,
             'abono' => $ticket->abono,
-            'responsable' => $ticket->persona->nombre ?? 'N/A', // Asegúrate de tener relación
+            'nombreResponsable' => $ticket->persona->nombres ?? 'N/A', // Asegúrate de tener relación
+            'apellidoResponsable' => $ticket->persona->apellidos ?? '', // Asegúrate de tener relación
             'estado' => $ticket->estado->nombre ?? 'Desconocido',
             'categoria' => $ticket->categoria->nombre ?? 'Desconocido',
         ]);
     }
 
+    public function generarPDF()
+    {
+        $tickets = Ticket::all();
+        return view('eventos.pdf', compact('tickets'));
+    }
 
 
     /**

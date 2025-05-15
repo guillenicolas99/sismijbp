@@ -12,17 +12,23 @@ class Persona extends Model
     protected $table = 'personas';
 
     protected $fillable = [
-        'nombre',
+        'nombres',
+        'apellidos',
+        'direccion',
+        'departamento',
+        'fecha_nacimiento',
         'genero',
         'telefono',
+        'correo',
         'cedula',
         'is_active',
         'is_baptized',
         'is_single',
         'red_id',
         'titulo_id',
-        'discipulado_id',
+        'telefonia_id',
     ];
+
 
     protected function casts(): array
     {

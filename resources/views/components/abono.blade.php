@@ -28,58 +28,74 @@
 </style>
 
 <script>
-    const abonoBtns = document.querySelectorAll('.abono-btn')
-    const closeBtn = document.querySelector('.close-abono')
+    const abonoBtns = document.querySelectorAll('.abono-btn');
+    const closeBtn = document.querySelector('.close-abono');
+    const aside = document.querySelector('.hidden-abono-aside');
+    const inputAbono = document.getElementById('abono');
+    // const formAbono = document.getElementById('form-abono');
 
+    let ticketData = null; // Variable global para almacenar los datos del ticket
+
+    // Cerrar modal
     closeBtn.addEventListener('click', function() {
-        const aside = document.querySelector('.hidden-abono-aside')
-        const inputAbonon = document.getElementById('abono')
-        aside.classList.remove('show-abono-aside')
+        aside.classList.remove('show-abono-aside');
         setTimeout(() => {
-            inputAbonon.value = ''
-            document.getElementById('skeleton-abono').classList.remove('hidden')
-            document.getElementById('info-abono').classList.add('hidden')
-        }, 500)
-    })
+            inputAbono.value = '';
+            document.getElementById('skeleton-abono').classList.remove('hidden');
+            document.getElementById('info-abono').classList.add('hidden');
+        }, 500);
+    });
 
+    // Abrir modal y cargar datos
     abonoBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            const aside = document.querySelector('.hidden-abono-aside')
             const ticketCodigo = this.getAttribute('data-ticket-codigo')
+            document.getElementById('form-abono').action = `/tickets/abonar-ticket/${ticketCodigo}`
+            document.getElementById('form-abono').addEventListener('submit', function(e) {
+                const abono = parseFloat(document.getElementById('abono').value);
+                const precio = parseFloat(document.getElementById('ticket-precio').innerText);
 
+                if (abono > precio) {
+                    e.preventDefault();
+                    alert('El abono no puede ser mayor al precio.');
+                }
+
+                if (abono < 0) {
+                    e.preventDefault();
+                    alert('El abono no puede ser menor a 0.');
+                }
+            })
+
+
+            // Mostrar modal
+            aside.classList.add('show-abono-aside');
+
+            // Mostrar loading
+            document.getElementById('skeleton-abono').classList.remove('hidden');
+            document.getElementById('info-abono').classList.add('hidden');
+
+            // Cargar datos del ticket
             fetch('/eventos/getTicketInfo/' + ticketCodigo)
                 .then(response => response.json())
                 .then(data => {
+                    ticketData = data; // Guardar datos para usar en el submit
+
                     document.getElementById('ticket-precio').innerText = data.precio;
                     document.getElementById('ticket-abonado').innerText = data.abono;
-                    document.getElementById('ticket-responsable').innerText = data.responsable;
+                    document.getElementById('ticket-responsable').innerText = data
+                        .nombreResponsable + ' ' + data.apellidoResponsable;
                     document.getElementById('ticket-codigo').innerText = data.codigo;
                     document.getElementById('ticket-titulo').innerText =
                         `Ticket: ${data.codigo} - ${data.categoria}`;
-
-                    const formAbono = document.getElementById('form-abono');
-                    formAbono.addEventListener('submit', e => {
-                        e.preventDefault()
-                        const abonoInput = document.getElementById('abono').value;
-                        if (abonoInput > data.precio) {
-                            return alert('¡El monto no puede ser mayor a el precio!');
-                        } else if (abonoInput > 0 && abonoInput <= data.precio) {
-                            return alert('¡Gracias por tu pago!');
-                        } else {
-                            return alert('¡El monto debe ser mayor a 0!');
-                        }
-                    })
-
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error('Error al obtener ticket:', error);
+                    alert('No se pudo cargar la información del ticket.');
                 })
                 .finally(() => {
                     document.getElementById('skeleton-abono').classList.add('hidden');
                     document.getElementById('info-abono').classList.remove('hidden');
                 });
-
-            aside.classList.add('show-abono-aside')
-        })
-    })
+        });
+    });
 </script>

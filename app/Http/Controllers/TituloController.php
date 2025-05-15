@@ -6,7 +6,7 @@ use App\Models\Titulo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class TituloController extends BaseController
+class TituloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class TituloController extends BaseController
         ]);
 
         Titulo::create($data);
-        $this->setFlashMessage('success', 'Éxito', 'Nivel "' . $request->nombre . '" creado correctamente');
+        $this->addFlashMessage();
         return redirect()->route('titulos.index');
     }
 
@@ -67,7 +67,7 @@ class TituloController extends BaseController
 
         $titulo->update($data);
 
-        $this->setFlashMessage('success', 'Éxito', 'Nivel "' . $request->nombre . '" actualizado correctamente');
+        $this->updateFlashMessage();
         return redirect()->route('titulos.index');
     }
 
@@ -79,7 +79,7 @@ class TituloController extends BaseController
         $deleted = $titulo;
         $titulo->delete();
 
-        $this->setFlashMessage('success', '¡Éxito!', 'Eliminado correctamente "' . $deleted->nombre . '"',);
+        $this->deleteFlashMessage("Evento $deleted->nombre");
 
         return redirect()->route('titulos.index');
     }

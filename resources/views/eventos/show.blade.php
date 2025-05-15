@@ -30,7 +30,10 @@
         </div>
     </div>
 
+    <h2 class="text-2xl text-white">Filtros de búsqueda</h2>
     <form method="GET" class="grid grid-cols-1 md:grid-cols-5 gap-4 my-4">
+        <input type="hidden" name="tipo_accion" id="tipo_accion" value="buscar">
+
         <x-text-input type="text" name="codigo" value="{{ request('codigo') }}" placeholder="Buscar por código" />
 
         <x-select-input name="categoria_id">
@@ -60,14 +63,21 @@
             @endforeach
         </x-select-input>
 
-        <button type="submit" class="btn btn-green text-center">Buscar</button>
+        <button type="submit" class="btn btn-green text-center"
+            onclick="document.getElementById('tipo_accion').value='buscar'">
+            Buscar
+        </button>
+
+        <button type="submit" class="btn btn-green text-center"
+            onclick="document.getElementById('tipo_accion').value='pdf'">
+            Generar PDF
+        </button>
     </form>
 
     @if (count($tickets) >= 1)
 
         <div class="flex justify-between items-center my-4">
             <h1 class="text-2xl text-white">Lista de tickets</h1>
-            <a class="btn btn-green" href="{{ route('tickets.create', $evento) }}">Crear ticket</a>
         </div>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -82,7 +92,7 @@
                             {{ $ticket->codigo }}
                         </x-tb-table>
                         <x-tb-table>
-                            {{ $ticket->persona ? $ticket->persona->nombre : 'No asignado' }}
+                            {{ $ticket->persona ? $ticket->persona->nombres . ' ' . $ticket->persona->apellidos : 'No asignado' }}
                         </x-tb-table>
                         <x-tb-table>
                             {{ $categorias->where('id', $ticket->categoria_id)->first()->nombre }}
@@ -102,7 +112,8 @@
                         <x-tb-table>
                             <div class="flex space-x-2">
                                 @if ($ticket->abono < $ticket->precio)
-                                    <button class="btn btn-green abono-btn" title="{{ $ticket->codigo }}" data-ticket-codigo="{{ $ticket->codigo }}">Abonar</button>
+                                    <button class="btn btn-green abono-btn" title="{{ $ticket->codigo }}"
+                                        data-ticket-codigo="{{ $ticket->codigo }}">Abonar</button>
                                 @else
                                     <button class="btn btn-red">Ver detalles</button>
                                 @endif

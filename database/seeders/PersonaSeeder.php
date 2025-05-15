@@ -14,7 +14,11 @@ class PersonaSeeder extends Seeder
     public function run(): void
     {
         $persona = new Persona();
-        $persona->nombre = 'Milagros Pérez';
+        $persona->nombres = 'Milagros';
+        $persona->apellidos = 'Pérez';
+        $persona->direccion = 'Carretera a Masaya';
+        $persona->departamento = 'Managua';
+        $persona->fecha_nacimiento = '1990-01-01';
         $persona->genero = 'F';
         $persona->telefono = '12014785';
         $persona->correo = 'milagros@gmail.com';
@@ -24,7 +28,11 @@ class PersonaSeeder extends Seeder
         $persona->save();
 
         $persona = new Persona();
-        $persona->nombre = 'Sandra Castillo';
+        $persona->nombres = 'Sandra';
+        $persona->apellidos = 'Castillo';
+        $persona->direccion = 'Masaya';
+        $persona->departamento = 'Managua';
+        $persona->fecha_nacimiento = '1990-01-01';
         $persona->genero = 'F';
         $persona->telefono = '01232587';
         $persona->correo = 'sandra@gmail.com';
@@ -34,7 +42,11 @@ class PersonaSeeder extends Seeder
         $persona->save();
 
         $persona = new Persona();
-        $persona->nombre = 'Esmirna Melendez';
+        $persona->nombres = 'Esmirna';
+        $persona->apellidos = 'Melendez';
+        $persona->direccion = 'Carretera a Masaya';
+        $persona->departamento = 'Managua';
+        $persona->fecha_nacimiento = '1990-01-01';
         $persona->genero = 'F';
         $persona->telefono = '12013658';
         $persona->correo = 'esmirna@gmail.com';
@@ -44,7 +56,11 @@ class PersonaSeeder extends Seeder
         $persona->save();
 
         $persona = new Persona();
-        $persona->nombre = 'Milagros Estrada';
+        $persona->nombres = 'Milagros';
+        $persona->apellidos = 'Estrada';
+        $persona->direccion = 'Carretera a Masaya';
+        $persona->departamento = 'Managua';
+        $persona->fecha_nacimiento = '1990-01-01';
         $persona->genero = 'F';
         $persona->telefono = '10123698';
         $persona->correo = 'milagrose@gmail.com';
@@ -54,7 +70,11 @@ class PersonaSeeder extends Seeder
         $persona->save();
 
         $persona = new Persona();
-        $persona->nombre = 'Clorinda Zelaya';
+        $persona->nombres = 'Clorinda';
+        $persona->apellidos = 'Zelaya';
+        $persona->direccion = 'Managua';
+        $persona->departamento = 'Managua';
+        $persona->fecha_nacimiento = '1990-01-01';
         $persona->genero = 'F';
         $persona->telefono = '31014785';
         $persona->correo = 'clorinda@gmail.com';

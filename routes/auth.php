@@ -73,9 +73,15 @@ Route::middleware('auth')->group(function () {
     //RUTAS ADMIN
     Route::resource('eventos', EventoController::class);
     Route::get('/eventos/getTicketInfo/{codigo}', [EventoController::class, 'getTicketInfo']);
-    
+    Route::get('/eventos/pdf', [EventoController::class, 'generarPDF']);
+
     Route::resource('tickets', TicketController::class);
     Route::get('/tickets/asignar/{id}', [TicketController::class, 'asignarTicket'])->name('tickets.asignar');
+    Route::get('/tickets/getPersonas/{redId}', [TicketController::class, 'getPersonas'])->name('tickets.getPersonas');
+    Route::post('/tickets/asignar-ticket/{ticketId}', [TicketController::class, 'asignarTicketPersona'])->name('tickets.asignarPersona');
+    Route::post('/tickets/{ticket}/comentarios', [TicketController::class, 'agregarComentario'])->name('tickets.comentarios');
+    Route::post('/tickets/abonar-ticket/{codigo}', [TicketController::class, 'abonarTicket']);
+
 
     Route::resource('personas', PersonaController::class);
     Route::resource('redes', RedController::class)->parameters([

@@ -52,4 +52,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(Persona::class);
     }
+
+    public function observaciones()
+    {
+        return $this->hasMany(Observacion::class);
+    }
 }

@@ -45,7 +45,11 @@ return new class extends Migration {
         // 2️⃣ Crear tabla personas
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombres')->nullable(false);
+            $table->string('apellidos')->nullable(false);
+            $table->string('direccion')->nullable(false);
+            $table->string('departamento')->nullable(false);
+            $table->date('fecha_nacimiento')->nullable(false);
             $table->enum('genero', ['M', 'F'])->nullable(false);
             $table->string('telefono')->unique();
             $table->string('correo')->unique();
@@ -101,6 +105,14 @@ return new class extends Migration {
             $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->foreignId('persona_id')->nullable()->constrained('personas')->nullOnDelete();
+            $table->timestamps();
+        });
+
+        Schema::create('observaciones', function (Blueprint $table) {
+            $table->id();
+            $table->string('comentario')->nullable();
+            $table->string('comentario_interno')->nullable();
+            $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade');
             $table->timestamps();
         });
 

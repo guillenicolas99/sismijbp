@@ -2,11 +2,29 @@
     <x-form action="{{ route('personas.store') }}" method="post" buttonText="Agregar" titleForm="Agregar"
         cancel="personas.index">
 
-        <div class="relative z-0 w-full mb-5 group">
-            <x-input-label value="Nombre" />
-            <x-text-input class="block mt-1 w-full" type="text" name="nombre" :value="old('nombre')" autofocus />
-        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Nombres" />
+                <x-text-input class="block mt-1 w-full" type="text" name="nombres" :value="old('nombres')" autofocus />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Apellidos" />
+                <x-text-input class="block mt-1 w-full" type="text" name="apellidos" :value="old('apellidos')" autofocus />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Dirección" />
+                <x-text-input class="block mt-1 w-full" type="text" name="direccion" :value="old('direccion')" autofocus />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Departamento" />
+                <x-text-input class="block mt-1 w-full" type="text" name="departamento" :value="old('departamento')"
+                    autofocus />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Fecha de nacimiento" />
+                <x-text-input class="block mt-1 w-full" type="date" name="fecha_nacimiento" :value="old('fecha_nacimiento')"
+                    autofocus />
+            </div>
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label value="Género" />
                 <x-select-input name="genero">
@@ -21,16 +39,23 @@
                 <x-text-input class="block mt-1 w-full" type="text" name="telefono" :value="old('telefono')" autofocus />
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <x-input-label value="Cédula" />
-                <x-text-input class="block mt-1 w-full" type="text" name="cedula" :value="old('cedula')" autofocus />
+                <x-input-label value="Telefonia" />
+                <x-select-input name="telefonia_id">
+                    <option selected disabled>Seleccione el género</option>
+                    @foreach ($telefonias as $telefonia)
+                        <option value="{{ $telefonia->id }}" {{ old('telefonia_id') == $telefonia->id ? 'selected' : '' }}>
+                            {{ $telefonia->nombre }}
+                        </option>
+                    @endforeach
+                </x-select-input>
             </div>
             <div class="relative z-0 w-full mb-5 group">
-                <x-input-label value="Estado Civil" />
-                <x-select-input name="is_single">
-                    <option selected disabled>Seleccione</option>
-                    <option value="0" {{ old('is_single') == '0' ? 'selected' : '' }}>Casado</option>
-                    <option value="1" {{ old('is_single') == '1' ? 'selected' : '' }}>Soltero</option>
-                </x-select-input>
+                <x-input-label value="Correo" />
+                <x-text-input class="block mt-1 w-full" type="text" name="correo" :value="old('correo')" autofocus />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Cédula" />
+                <x-text-input class="block mt-1 w-full" type="text" name="cedula" :value="old('cedula')" autofocus />
             </div>
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label value="Bautizado" />
@@ -40,6 +65,15 @@
                     <option value="1" {{ old('is_baptized') == '1' ? 'selected' : '' }}>Si</option>
                 </x-select-input>
             </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <x-input-label value="Estado Civil" />
+                <x-select-input name="is_single">
+                    <option selected disabled>Seleccione</option>
+                    <option value="0" {{ old('is_single') == '0' ? 'selected' : '' }}>Casado</option>
+                    <option value="1" {{ old('is_single') == '1' ? 'selected' : '' }}>Soltero</option>
+                </x-select-input>
+            </div>
+
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label value="Red" />
 
